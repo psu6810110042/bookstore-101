@@ -1,8 +1,6 @@
 import "./App.css";
 import BookList from "./components/BookList";
-import Clock from "./components/Clock";
-import { Form, Button, Spin, Space, Popconfirm } from "antd";
-import { LogoutOutlined, BookOutlined } from '@ant-design/icons';
+import { Form, Button, Spin } from "antd";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddBook from "./components/AddBook";
@@ -48,7 +46,7 @@ function BookScreen({ onLogout }) {
     try {
       const response = await axios.get(URL_BOOK);
       setBookData(response.data);
-      console.log(response.data)
+      // console.log(response.data)
     } catch (err) {
       console.log(err);
     } finally {
@@ -86,7 +84,7 @@ function BookScreen({ onLogout }) {
     };
 
     try {
-      console.log(bookToSend)
+      // console.log(bookToSend)
       const response = await axios.post(URL_BOOK, bookToSend);
       const createdBook = response.data;
 

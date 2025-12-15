@@ -1,11 +1,9 @@
 import { Button, Form, Select, Input, InputNumber, Modal } from 'antd';
-import { useRef, useEffect } from 'react'; // Import useRef and useEffect
+import { useRef, useEffect } from 'react';
 
 export default function AddBook(props) {
-    // Use a ref to control the Form instance inside the Modal
     const formRef = useRef(null);
 
-    // Ensure the form fields are reset when the modal opens/closes
     useEffect(() => {
         if (!props.open) {
             formRef.current?.resetFields();
@@ -14,8 +12,8 @@ export default function AddBook(props) {
 
     const handleOk = () => {
         formRef.current.validateFields().then(values => {
-            props.onSave(values); // Calls handleAddBook in parent
-            formRef.current.resetFields(); // Reset form fields after successful submission
+            props.onSave(values);
+            formRef.current.resetFields();
         }).catch(info => {
             console.log('Validation Failed:', info);
         });
@@ -28,14 +26,13 @@ export default function AddBook(props) {
             cancelText="Cancel"
             open={props.open}
             onCancel={props.onCancel}
-            onOk={handleOk} // Use the new handler
-            destroyOnHidden={true} // Ensures clean state when modal closes
+            onOk={handleOk}
+            destroyOnHidden={true}
         >
-            {/* Reintroduce the Form structure here */}
             <Form 
                 ref={formRef} 
-                layout="vertical" // Stack labels nicely inside the modal
-                initialValues={{ // Set default values if needed
+                layout="vertical"
+                initialValues={{
                     stock: 1, 
                     price: 10.00
                 }}
@@ -72,8 +69,6 @@ export default function AddBook(props) {
                     <Select allowClear options={props.categories} />
                 </Form.Item>
                 
-                {/* Note: Other fields like author/description can be added here as needed */}
-
             </Form>
         </Modal>
     )

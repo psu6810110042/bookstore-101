@@ -14,7 +14,7 @@ export default function LoginScreen(props) {
     try {
       setIsLoading(true);
       setErrMsg(null);
-      console.log(formData)
+      // console.log(formData)
       const response = await axios.post(URL_AUTH, apiPayload);
       console.log(response);
       const token = response.data.access_token;
