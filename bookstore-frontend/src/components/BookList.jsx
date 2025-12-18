@@ -42,7 +42,7 @@ export default function BookList(props) {
       key: "coverURL",
       dataIndex: "coverUrl",
       render: (text) => (
-        <Image src={`${import.meta.env.VITE_APP_IMAGE_URL}/${text}`} height={100} />
+        <Image src={`${import.meta.env.VITE_APP_IMAGE_URL}${text}`} height={100} />
       ),
     },
     {
