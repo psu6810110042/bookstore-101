@@ -26,7 +26,7 @@ const MainApp = () => {
                 navigate('/books');
             }
         } else {
-            navigate('/');
+            navigate('/login');
         }
     }, [navigate]);
 
@@ -48,13 +48,13 @@ const MainApp = () => {
 
     const handleLogout = () => {
         setIsAuthenticated(false);
-        navigate('/');
+        navigate('/login');
     };
 
     return (
         <Routes>
             <Route
-                path="/"
+                path="/login"
                 element={
                     isAuthenticated ? <BookScreen onLogout={handleLogout} /> : <LoginScreen onLoginSuccess={handleLoginSuccess} />
                 }

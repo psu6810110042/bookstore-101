@@ -19,14 +19,23 @@ function BookScreen({ onLogout }) {
   const [bookData, setBookData] = useState([]);
   const [editBook, setEditBook] = useState(null);
   const bookCount = bookData.reduce((total, book) => total + book.stock, 0);
-
   const [filterTitle, setFilterTitle] = useState("");
   const [filterCategory, setFilterCategory] = useState(null);
   const [filterStock, setFilterStock] = useState(null);
-
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-
   const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchBooks();
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    setTotalAmount(
+      bookData.reduce((total, book) => total + book.price * book.stock, 0)
+    );
+  }, [bookData]);
+
   const fetchCategories = async () => {
     try {
       const response = await axios.get(URL_CATEGORY);
@@ -53,17 +62,6 @@ function BookScreen({ onLogout }) {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchBooks();
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    setTotalAmount(
-      bookData.reduce((total, book) => total + book.price * book.stock, 0)
-    );
-  }, [bookData]);
 
   const generateRandomISBN = () => {
     const randomDigits = () => Math.floor(Math.random() * 1000000000);
@@ -106,9 +104,7 @@ function BookScreen({ onLogout }) {
     );
 
     try {
-      const response = await axios.patch(`${URL_BOOK}/${bookId}`, {
-        likeCount: bookToUpdate.likeCount + 1,
-      });
+      const response = await axios.post(`${URL_BOOK}/${bookId}/like`);
 
     } catch (error) {
       console.error(error);
